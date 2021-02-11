@@ -13,7 +13,7 @@ public class ex2
 {
     public static void main(String[] args)
     {
-        SparkConf conf = new SparkConf().setAppName("ex1").setMaster("local");
+        SparkConf conf = new SparkConf().setAppName("ex2").setMaster("local");
         JavaSparkContext jsc = new JavaSparkContext(conf);
 
         String path = "file:///"+System.getProperty("user.dir")+"/ml-latest/tags.csv";
