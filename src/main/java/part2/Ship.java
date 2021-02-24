@@ -18,6 +18,7 @@ public class Ship implements Serializable
     public double minlat = 0;
     public long maxt = 0;
     public long mint = 0;
+    public long timestampDiffs = 0;
 
     public Ship(String id, String course, double lon, double lat, long timestamp, String heading, String speed)
     {

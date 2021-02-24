@@ -6,6 +6,7 @@ import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import scala.Tuple2;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class ex1 {
@@ -37,14 +38,26 @@ public class ex1 {
 
         shipPairs = shipPairs.reduceByKey((s1, s2) -> {
             int count = s1.count + s2.count;
-            double maxlon = Math.max(s1.lon, s2.lon);
-            double minlon = Math.min(s1.lon, s2.lon);
-            double maxlat = Math.max(s1.lat, s2.lat);
-            double minlat = Math.min(s1.lat, s2.lat);
-            long maxt = Math.max(s1.timestamp, s2.timestamp);
-            long mint = Math.min(s1.timestamp, s2.timestamp);
+            double maxlon = Math.max(s1.maxlon, s2.lon);
+            double minlon = Math.min(s1.minlon, s2.lon);
+            double maxlat = Math.max(s1.maxlat, s2.lat);
+            double minlat = Math.min(s1.minlat, s2.lat);
+            long maxt = Math.max(s1.maxt, s2.timestamp);
+            long mint = Math.min(s1.mint, s2.timestamp);
 
-            return new Ship(count, maxlon, minlon, maxlat, minlat, maxt, mint);
+            Ship retShip = new Ship(count, maxlon, minlon, maxlat, minlat, maxt, mint);
+            long diff = Math.abs(s1.timestamp - s2.timestamp);
+            if(diff < 1000000)
+            {
+                retShip.timestampDiffs = diff;
+            }
+            else
+            {
+                retShip.timestampDiffs = s1.timestampDiffs;
+            }
+            retShip.timestamp = s2.timestamp;
+
+            return retShip;
         });
 
         int shipCount = (int) shipPairs.keys().count();
@@ -52,6 +65,8 @@ public class ex1 {
 
         shipPairs.foreach(s -> {
             System.out.println("Ship "+s._1+" data count: "+s._2.count);
+            double avgdt = s._2.timestampDiffs / (double)s._2.count;
+            System.out.println("\tAverage period: "+avgdt+"\n");
         });
 
         double maxlon = 0;
