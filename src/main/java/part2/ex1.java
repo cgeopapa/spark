@@ -4,10 +4,8 @@ import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
+import part2.model.Ship;
 import scala.Tuple2;
-
-import java.util.HashMap;
-import java.util.List;
 
 public class ex1 {
     public static void main(String[] args) {

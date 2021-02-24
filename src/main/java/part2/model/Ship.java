@@ -1,4 +1,4 @@
-package part2;
+package part2.model;
 
 import java.io.Serializable;
 
@@ -39,5 +39,9 @@ public class Ship implements Serializable
         this.minlat = minlat;
         this.maxt = maxt;
         this.mint = mint;
+    }
+
+    public Ship()
+    {
     }
 }
