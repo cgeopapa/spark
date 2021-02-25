@@ -56,7 +56,15 @@ public class ex2
             return s1;
         });
 
-        ships.coalesce(1).saveAsTextFile("file:///"+System.getProperty("user.dir")+"/output/part2/ex2");
+        ships.map((s) -> {
+            StringBuilder ret = new StringBuilder();
+            for (Ship2 sh : s._2)
+            {
+                ret.append(sh.speed).append(", ");
+            }
+            ret.substring(0, ret.length()-2);
+            return ret.toString();
+        }).coalesce(1).saveAsTextFile("file:///"+System.getProperty("user.dir")+"/output/part2/ex2");
     }
     
     private static double getSpeed(Ship2 start, Ship2 end)
