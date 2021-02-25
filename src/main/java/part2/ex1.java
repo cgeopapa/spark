@@ -64,7 +64,7 @@ public class ex1 {
         shipPairs.foreach(s -> {
             System.out.println("Ship "+s._1+" data count: "+s._2.count);
             double avgdt = s._2.timestampDiffs / (double)s._2.count;
-            System.out.println("\tAverage period: "+avgdt+"\n");
+            System.out.println("\tAverage sampling period: "+avgdt+"\n");
         });
 
         double maxlon = 0;
